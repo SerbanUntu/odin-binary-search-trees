@@ -77,7 +77,7 @@ export class Tree {
 		}
 	}
 
-	delete(value) {
+	deleteItem(value) {
 		let currentNode = this.root
 		let parentNode = currentNode
 		let pathTaken = 'left'
@@ -184,5 +184,43 @@ export class Tree {
 		if (callback) callback(node)
 		else arr.push(node.data)
 		if (!callback) return arr
+	}
+
+	height(node) {
+		if (node.left === null && node.right === null) return 0
+		if (node.left === null) return this.height(node.right) + 1
+		if (node.right === null) return this.height(node.left) + 1
+		return Math.max(this.height(node.left), this.height(node.right)) + 1
+	}
+
+	depth(node) {
+		let currentNode = this.root
+		let result = 0
+		while (currentNode !== null) {
+			if (currentNode.data === node.data) return result
+			if (currentNode.data > node.data) {
+				currentNode = currentNode.left
+				result++
+			}
+			if (currentNode.data < node.data) {
+				currentNode = currentNode.right
+				result++
+			}
+		}
+		return null
+	}
+
+	isBalanced(node = this.root) {
+		if (node === null) return true
+		let leftHeight = -1
+		let rightHeight = -1
+		if (node.left) leftHeight = this.height(node.left)
+		if (node.right) rightHeight = this.height(node.right)
+		if (Math.abs(leftHeight - rightHeight) > 1) return false
+		return this.isBalanced(node.left) && this.isBalanced(node.right)
+	}
+
+	rebalance() {
+		this.root = buildTree(this.inOrder())
 	}
 }
