@@ -20,3 +20,8 @@ test.print()
 */
 console.log(test.find(5)) // Node { data: 5, left: [Node], right: [Node] }
 console.log(test.find(111)) // null
+
+console.log(test.levelOrder()) // [ 8, 5, 23, 1, 7, 9, 324, 3, 10, 67, 6345, 65 ]
+console.log(test.inOrder()) // [ 1, 3, 5, 7, 8, 9, 10, 23, 65, 67, 324, 6345 ]
+console.log(test.preOrder()) // [ 8, 5, 1, 3, 7, 23, 9, 10, 324, 67, 65, 6345 ]
+console.log(test.postOrder()) // [ 3, 1, 7, 5, 10, 9, 65, 67, 6345, 324, 23, 8 ]

@@ -145,4 +145,44 @@ export class Tree {
 		}
 		return currentNode
 	}
+
+	levelOrder(callback) {
+		const q = []
+		const arr = []
+		let index = 0
+		q.push(this.root)
+		while (q.length >= index + 1) {
+			let currentNode = q[index]
+			index++
+			if (callback) callback(currentNode)
+			else arr.push(currentNode.data)
+			if (currentNode.left !== null) q.push(currentNode.left)
+			if (currentNode.right !== null) q.push(currentNode.right)
+		}
+		if (!callback) return arr
+	}
+
+	inOrder(callback, node = this.root, arr = []) {
+		if (node.left !== null) this.inOrder(callback, node.left, arr)
+		if (callback) callback(node)
+		else arr.push(node.data)
+		if (node.right !== null) this.inOrder(callback, node.right, arr)
+		if (!callback) return arr
+	}
+
+	preOrder(callback, node = this.root, arr = []) {
+		if (callback) callback(node)
+		else arr.push(node.data)
+		if (node.left !== null) this.preOrder(callback, node.left, arr)
+		if (node.right !== null) this.preOrder(callback, node.right, arr)
+		if (!callback) return arr
+	}
+
+	postOrder(callback, node = this.root, arr = []) {
+		if (node.left !== null) this.postOrder(callback, node.left, arr)
+		if (node.right !== null) this.postOrder(callback, node.right, arr)
+		if (callback) callback(node)
+		else arr.push(node.data)
+		if (!callback) return arr
+	}
 }
